@@ -1,0 +1,17 @@
+ R←Test_UC_001(stopFlag batchFlag);⎕TRAP;list;list2
+⍝ Checks whether there are two conflicting files which are identical and two that aren't. Doesn't not do anything due to -dry.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+
+ R←T._Failed
+
+ ⎕SE.Dropbox.CommTools.AddAutomation'YesOrNo' 'ExecInRoot@' 'y'
+ list←⎕SE.UCMD'Dropbox ',∆PATH,' -dry'
+ →T.GoToTidyUp 2≠≢list
+ list2←⎕SE.Dropbox.ListAllConflictingFiles ∆PATH
+ →T.GoToTidyUp 4≠≢list2
+
+ R←T._OK
+
+∆TidyUp:
+ ⎕SE.Dropbox.CommTools.Cleanup
+⍝Done

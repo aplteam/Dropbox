@@ -1,0 +1,4 @@
+ Initial
+ ∆PATH←FilesAndDirs.GetTempSubDir'Dropbox-Tests'
+ ∆PATH ⎕NCOPY⍠('Wildcard' 1)⊢##.CiderConfig.HOME,'/TestData/*'
+ ⍝Done

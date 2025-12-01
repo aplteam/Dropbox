@@ -1,0 +1,9 @@
+ r←ListAllConflictingFiles path;parms;F
+ parms←⎕NS''
+ parms.recurse←2
+ :If 9=##.⎕NC'FilesAndDirs'
+     F←##.FilesAndDirs
+ :Else
+     F←FilesAndDirs
+ :EndIf
+ r←parms F.ListFiles2 path,'/*conflicted copy*'

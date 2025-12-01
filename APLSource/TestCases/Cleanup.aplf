@@ -1,0 +1,5 @@
+ Cleanup
+ :If 0<⎕NC'∆PATH'
+     FilesAndDirs.RmDirByForce ∆PATH
+     ⎕EX'∆PATH'
+ :EndIf

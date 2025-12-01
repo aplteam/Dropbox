@@ -1,0 +1,5 @@
+ r←Info
+ r←''
+ r,←⊂'Note that the Dropbox conflict warnings are caused by the test folder:'
+ r,←⊂'Don''t touch them unless you know EXACTLY what you are doing!'
+ r←⎕SE.Cider.##.Frame r

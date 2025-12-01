@@ -1,0 +1,17 @@
+ R←Test_UC_900(stopFlag batchFlag);⎕TRAP;ver1;ver2
+⍝ Check on the -version flag
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+
+ R←T._Failed
+
+ ⎕SE.Dropbox.CommTools.AddAutomation'YesOrNo' 'ExecInRoot@' 'n'
+
+ ver1←∆UCMD'-version'
+ ver2←##.Dropbox.Version
+ →T.PassesIf ver1≡ver2
+
+ R←T._OK
+
+∆TidyUp:
+ ⎕SE.Dropbox.CommTools.Cleanup
+⍝Done
