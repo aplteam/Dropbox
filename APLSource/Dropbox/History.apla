@@ -1,0 +1,9 @@
+(
+ '* 0.3.0 ⋄ 2025-12-07'
+ '  * Bug fixes'
+ '    * WS FULL and TRANSLATION errors are now trapped and properly reported'
+ '    * Missing `History` variable added'
+ '* 0.2.0 ⋄ 2025-12-01'
+ '  * First version '
+ ''
+)

@@ -20,5 +20,5 @@
   source: "APLSource/Dropbox",
   tags: "dropbox,dropbox-conflicts",
   userCommandScript: "APLSource/Dropbox_uc.dyalog",
-  version: "0.2.0+12",
+  version: "0.3.0+13",
 }

@@ -1,4 +1,4 @@
-﻿:Class  Dropbox_uc
+:Class  Dropbox_uc
 
     ∇ r←List;⎕IO;⎕ML ⍝ this function usually returns 1 or more namespaces (here only 1)
       :Access Shared Public
@@ -79,6 +79,8 @@
           r,←⊂''
           r,←⊂'A list with all conflict files is established. The user command then compares'
           r,←⊂'the contents. If there is no real conflict, the conflicting file is deleted.'
+          r,←⊂'At the moment, only text files can be compared. This restriction may be lifted'
+          r,←⊂'at a later stage.'
           r,←⊂'For all real conflicts a list is returned by the user command.'
           r,←⊂''
           r,←⊂'-dry       Reports what it would do without actually doing it'
@@ -105,22 +107,34 @@
               filename←i⊃list
               filename2←DropConflictIndicator filename
               msg←⊂(⍕i),' of ',⍕noOf
-              :If ≡/{↑⎕NGET ⍵}¨filename filename2
-                  msg,←⊂(1+≢path)↓filename
-                  msg,←⊂'  is identical with:'
-                  msg,←⊂(1+≢path)↓filename2
-                  :If dry
-                      msg,←⊂'  and would therefore be deleted if it wasn''t for the -dry flag'
+              :Trap 1 92
+                  :If ≡/{↑⎕NGET ⍵}¨filename filename2
+                      msg,←⊂(1+≢path)↓filename
+                      msg,←⊂'  is identical with:'
+                      msg,←⊂(1+≢path)↓filename2
+                      :If dry
+                          msg,←⊂'  and would therefore be deleted if it wasn''t for the -dry flag'
+                      :Else
+                          msg,←⊂'  and therefore deleted'
+                      :EndIf
+                      ⎕←⊃msg
+                      {}⎕NDELETE⍣(~dry)⊢filename
                   :Else
-                      msg,←⊂'  and therefore deleted'
+                      msg,←⊂'Added to list of serious conflicts'
+                      ⎕←⊃msg
+                      r⍪←⊂filename
                   :EndIf
+              :Case 1
+                  msg←⊂'Files cannot be compared due to a WS FULL:'
+                  msg,←⊂filename
+                  msg,←⊂filename2
                   ⎕←⊃msg
-                  {}⎕NDELETE⍣(~dry)⊢filename
-              :Else
-                  msg,←⊂'Added to list of serious conflicts'
+              :Case 92
+                  msg←⊂'Files cannot be compared due to a TRANSLATION ERROR:'
+                  msg,←⊂filename
+                  msg,←⊂filename2
                   ⎕←⊃msg
-                  r⍪←⊂filename
-              :EndIf
+              :EndTrap
           :EndFor
       :EndIf
     ∇
